@@ -1,0 +1,72 @@
+/*@import "normalise";*/
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+@import "susy";
+@import "breakpoint";
+
+@import "mixins";
+
+$susy: (
+	container: 60em,
+	columns: 12,
+	global-box-sizing: border-box
+);
+
+$bp-small: 24em;
+$bp-medium: 48em;
+$bp-large: 60em;
+$breakpoint-no-query-fallbacks: true;
+
+@include border-box-sizing;
+
+body {
+	background-color: #e4e4e4;
+}
+
+.page {
+	@include container();
+	@include box-shadow(#999 0px 0px 5px);
+	background-color: #f2f2f2;
+	min-height:100%;
+	position: relative;
+}
+
+.page__sidebar {
+	@include span(12 last); 
+/*	@include susy-breakpoint($bp-medium, $susy) {
+		@include span(4 first);
+	}
+*/	@include susy-breakpoint($bp-large, $susy) {
+		@include span(4 first);
+	}
+
+	padding: span(1 of 24);
+
+	background-color: #616D7E;
+	background-color: #444;
+	color: #fff;
+
+	top: 0;
+	left: 0;
+	bottom: 0;
+	position: absolute;
+}
+
+.page__content {
+	@include span(12 last); 
+/*	@include susy-breakpoint($bp-medium, $susy) {
+		@include span(8 last);
+	}
+*/	@include susy-breakpoint($bp-large, $susy) {
+		@include span(8 last);
+	}
+	padding: span(1 of 24);
+
+	.box {
+		@include span(4);
+		&.box3 {
+			@include span(4 last);
+		}
+	}
+}
