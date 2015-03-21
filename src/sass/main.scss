@@ -11,24 +11,25 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
 
 $susy: (
-	container: 60em,
+	container: 100%,
 	columns: 12,
 	global-box-sizing: border-box
 );
 
-$bp-small: 24em;
-$bp-medium: 48em;
-$bp-large: 60em;
+$bp-small: 48em;
+$bp-medium: 60em;
+$bp-large: 80em;
 
 $breakpoint-no-query-fallbacks: true;
 
 @include border-box-sizing;
 
-$sidebar-background-color: #CA293E;
+//$sidebar-background-color: #CA293E;
+$sidebar-background-color: #296eca;
 $content-background-color: #fafafa;
 
 body {
-	background-color: #e4e4e4;
+	background-color: $sidebar-background-color;
 	font-family: 'Roboto', sans-serif;
 	font-size: 1rem;
 	font-weight: 300;
@@ -58,12 +59,20 @@ a {
 	padding: 2rem span(1);
 
 	@include susy-breakpoint($bp-large, $susy) {
-		@include span(4 first);
+		@include span(3 first);
 		top: 0;
 		left: 0;
 		bottom: 0;
-		position: absolute;
+		position: fixed;
 		padding: 2rem span(1 of 24);
+	}
+	@include susy-breakpoint($bp-medium, $susy) {
+                @include span(4 first);
+                top: 0;
+                left: 0;
+                bottom: 0;
+                position: fixed;
+                padding: 2rem span(1 of 24);
 	}
 
 	background-color: $sidebar-background-color;
@@ -77,8 +86,12 @@ a {
 	padding: 2rem span(1);
 
 	@include susy-breakpoint($bp-large, $susy) {
-		@include span(8 last);
+		@include span(9 last);
 		padding: span(1 of 24);
+	}
+	@include susy-breakpoint($bp-medium, $susy) {
+		@include span(8 last);
+                padding: span(1 of 24);
 	}
 
 	.box {
