@@ -8,7 +8,7 @@
 @import "icons";
 @import "octicons";
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700);
 
 $susy: (
 	container: 100%,
@@ -25,39 +25,49 @@ $breakpoint-no-query-fallbacks: true;
 @include border-box-sizing;
 
 //$sidebar-background-color: #CA293E;
-$sidebar-background-color: #296eca;
-$content-background-color: #fafafa;
-
+$sidebar-background-color: #37474f;
+//$sidebar-background-color: #4577B0;
+$content-background-color: #eee;
+$print-sidebar-color: #ccc;
 body {
 	background-color: $sidebar-background-color;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 1rem;
-	font-weight: 300;
-	line-height: 1.4;
+	font-weight: 400;
+	line-height: 1.5;
+	@media print {
+	    /* this affects the margin in the printer settings */ 
+	    margin: 0mm;  
+	}
 }
 
 strong {
-	font-weight: 400;
+	font-weight: 600;
 }
 a {
 	color: #333;
+	text-decoration: none;
+	border-bottom: 1px dashed #aaa;
 	&:hover {
 		color: #000;
+		border-bottom: 1px dashed #999;
 	}
 }
 
 .page {
 	@include container();
-	@include box-shadow(#999 0px 0px 5px);
 	background-color: $content-background-color;
+	color: #000;
 	min-height: 100%;
 	position: relative;
+
 }
 
 .page__sidebar {
 	@include span(12 last); 
 	padding: 2rem span(1);
 
+ 	@include box-shadow(#333 0px 0px 15px);
 	@include susy-breakpoint($bp-large, $susy) {
 		@include span(3 first);
 		top: 0;
@@ -76,9 +86,14 @@ a {
 	}
 
 	background-color: $sidebar-background-color;
-	/*background-image: linear-gradient(left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));*/
-
-	color: #fff;
+	@include background-image(linear-gradient(left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)));
+	font-weight: 300;
+	color: $content-background-color;
+	@media print {
+		background-color: $print-sidebar-color;
+		color: #000;
+                @include background-image(none);
+	}
 }
 
 .page__content {
@@ -100,6 +115,10 @@ a {
 			@include span(4 last);
 		}
 	}
+	
+	@media print {
+		background-color: #ffffff;
+	}
 }
 
 header {
@@ -107,7 +126,6 @@ header {
 	/*text-shadow: 0 1px 1px #444;*/
 	h1 {
 		font-size: 2.6rem;
-		line-height: 1.2;
 	}
 	h2 {
 		font-size: 1.3rem;
@@ -129,7 +147,7 @@ header {
 			display: block;
 			float: left;
 			margin-right: 0.6rem;
-			background-color: #fff;
+			background-color: $content-background-color;
 			color: $sidebar-background-color;
 			border-radius: 50%;
 			text-align: center;
@@ -137,6 +155,11 @@ header {
 			line-height: 1.4rem;
 			width: 1.4rem;
 			height: 1.4rem;
+ 			@media print {
+                        	background-color: #000;
+				color: $print-sidebar-color;
+                        }
+
 		}
 	}
 	p {
@@ -158,9 +181,13 @@ header {
 				line-height: 1.4rem;
 				width: 1.4rem;
 				height: 1.4rem;
+
 			}
 			a { 
-				color: #fff;
+				color: $content-background-color;
+				@media print {
+					color: #000;
+				}
 			}
 		}
 	}
@@ -175,19 +202,27 @@ header {
 		line-height: 2.2rem;
 		margin-bottom: 1rem;
 		color: $sidebar-background-color;
+		@media print {
+			color: #000;
+		}
 
 		[class^="mdi-"], [class*=" mdi-"] {
 			display: block;
 			float: left;
 			margin-right: 1rem;
 			background-color: $sidebar-background-color;
-			color: #fff;
+			color: $content-background-color;
 			border-radius: 50%;
 			text-align: center;
 			font-size: 1.3rem;
 			line-height: 2.2rem;
 			width: 2.2rem;
 			height: 2.2rem;
+ @media print {
+                                background-color: #000;
+                                color: #fff;
+                        }
+
 		}
 	}
 	article {
@@ -198,6 +233,12 @@ header {
 		@include susy-breakpoint($bp-large, $susy) {
 			margin: 1rem 1rem 3rem 3.2rem;
 		}*/
+
+		div { 
+			page-break-inside: avoid; 
+			float: left;
+			clear: both;
+		}
 
 		h3 {
 			text-transform: uppercase;
@@ -236,7 +277,7 @@ header {
 		}
 		.metadata {
 			@include span(12);
-			margin: 0 0 0.25rem;
+			margin: 0 0 0.5rem;
 
 			@include susy-breakpoint($bp-large, $susy) {
 				@include span(4);
@@ -244,14 +285,13 @@ header {
 
 			font-size: 0.8rem;
 			line-height: 1rem;
-			font-weight: 300;
-			color: #333;
+			font-weight: 400;
 
 			[class^="mdi-"], [class*=" mdi-"] {
 				display: block;
 				float: left;
 				margin-right: 0.4rem;
-				color: #aaa;
+				color: #000;
 				font-size: 1rem;
 			}
 		}
@@ -261,5 +301,17 @@ header {
 			font-size: 0.9rem;
 
 		}
+	}
+}
+
+#header-What\ is\ this\? {
+	@media print {
+		display: none;
+	}
+}
+
+#education {
+	article {
+		page-break-inside: avoid;
 	}
 }
